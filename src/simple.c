@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 16:51:53 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 09:59:37 by soelalou         ###   ########.fr       */
+/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:37:59 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	sort_3(t_pile **a)
+static void	sort_3(t_pile **a)
 {
 	t_pile	*head;
 	int		min;
@@ -21,7 +21,7 @@ void	sort_3(t_pile **a)
 	head = *a;
 	min = get_min(a, -1);
 	next_min = get_min(a, min);
-	if (is_sorted(a))
+	if (check_already_sorted(a))
 		return ;
 	handler_3(a, head, min, next_min);
 }
@@ -53,11 +53,11 @@ void	handler_3(t_pile **a, t_pile *head, int min, int next_min)
 	}
 }
 
-void	sort_4(t_pile **a, t_pile **b)
+static void	sort_4(t_pile **a, t_pile **b)
 {
 	int	distance;
 
-	if (is_sorted(a))
+	if (check_already_sorted(a))
 		return ;
 	distance = get_distance(a, get_min(a, -1));
 	if (distance == 1)
@@ -69,7 +69,7 @@ void	sort_4(t_pile **a, t_pile **b)
 	}
 	else if (distance == 3)
 		rra(a);
-	if (is_sorted(a))
+	if (check_already_sorted(a))
 		return ;
 	pb(a, b);
 	sort_3(a);
@@ -95,7 +95,7 @@ void	sort_5(t_pile **a, t_pile **b)
 	}
 	else if (distance == 4)
 		rra(a);
-	if (is_sorted(a))
+	if (check_already_sorted(a))
 		return ;
 	pb(a, b);
 	sort_4(a, b);
@@ -106,7 +106,7 @@ void	simple_sort(t_pile **a, t_pile **b)
 {
 	int	size;
 
-	if (is_sorted(a) || lstsize(*a) == 0
+	if (check_already_sorted(a) || lstsize(*a) == 0
 		|| lstsize(*a) == 1)
 		return ;
 	size = lstsize(*a);

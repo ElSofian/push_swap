@@ -5,44 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 10:30:28 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 10:31:52 by soelalou         ###   ########.fr       */
+/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	display_banner(char *color)
+static void	initialize(t_pile **stack, int argc, char **argv)
 {
-	ft_printf("\n\t%s██████╗ ██╗   ██╗███████╗██╗  ██╗        ███████╗██╗    ██╗ █████╗ ██████╗\
-	%s", color, RESTART);
-	ft_printf("\n\t%s██╔══██╗██║   ██║██╔════╝██║  ██║        ██╔════╝██║    ██║██╔══██╗██╔══██╗\
-	%s", color, RESTART);
-	ft_printf("\n\t%s██████╔╝██║   ██║███████╗███████║        ███████╗██║ █╗ ██║███████║██████╔╝\
-	%s", color, RESTART);
-	ft_printf("\n\t%s██╔═══╝ ██║   ██║╚════██║██╔══██║        ╚════██║██║███╗██║██╔══██║██╔═══╝\
-	%s", color, RESTART);
-	ft_printf("\n\t%s██║     ╚██████╔╝███████║██║  ██║███████╗███████║╚███╔███╔╝██║  ██║██║\
-	%s", color, RESTART);
-	ft_printf("\n\t%s╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝%s\
-	\n\n", color, RESTART);
-	ft_printf("\t────────────────────────────────────────────────────────────\
-──────────────\n\n\n");
-}
-
-void	sort(t_pile **a, t_pile **b)
-{
-	if (lstsize(*a) <= 5)
-		simple_sort(a, b);
-	else
-		radix_sort(a, b);
-}
-
-void	initialize(t_pile **stack, int argc, char **argv)
-{
-	int		i;
-	char	**args;
 	t_pile	*new;
+	char	**args;
+	int		i;
 
 	i = 0;
 	if (argc == 2)
@@ -63,21 +37,35 @@ void	initialize(t_pile **stack, int argc, char **argv)
 		ft_freetab(args);
 }
 
-int	main(int ac, char **av)
+static void	sort(t_pile **a, t_pile **b)
+{
+	if (lstsize(*a) <= 5)
+		simple_sort(a, b);
+	else
+		complex_sort(a, b);
+}
+
+int	main(int argc, char **argv)
 {
 	t_pile	**a;
 	t_pile	**b;
 
-	check(ac, av);
+	if (argc < 2)
+		return (-1);
+	check_args(argc, argv);
 	a = (t_pile **)malloc(sizeof(t_pile));
 	b = (t_pile **)malloc(sizeof(t_pile));
 	*a = NULL;
 	*b = NULL;
-	display_banner(RED);
-	initialize(a, ac, av);
-	check_already_sorted(a, b);
+	initialize(a, argc, argv);
+	if (check_already_sorted(a))
+	{
+		free_stack(a);
+		free_stack(b);
+		return (0);
+	}
 	sort(a, b);
-	freepile(a);
-	freepile(b);
+	free_stack(a);
+	free_stack(b);
 	return (0);
 }

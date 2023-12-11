@@ -6,7 +6,7 @@
 #    By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:45 by soelalou          #+#    #+#              #
-#    Updated: 2023/12/11 10:46:55 by soelalou         ###   ########.fr        #
+#    Updated: 2023/12/11 13:48:31 by soelalou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,27 @@
 # VARIABLES
 
 NAME        =	push_swap
+CHECK		=	checker
 LIBFT		=	libft/libft.a
 CC          =	cc
 CFLAGS      =	-Wall -Wextra -Werror
 RM          =	rm -rf
 
-SRCS		=	src/complex.c src/errors.c src/errors2.c src/lists.c \
-				src/main.c src/push.c src/reverse.c src/rotate.c src/simple.c src/swap.c \
-				src/utils.c src/utils2.c
+SRCS		=	src/main.c src/complex.c src/simple.c \
+				src/swap.c src/push.c src/reverse.c src/rotate.c \
+				src/errors.c src/pos.c src/lists.c src/utils.c
+
+CHECK_SRCS	=	src/swap.c src/push.c src/reverse.c src/rotate.c \
+				src/errors.c src/pos.c src/lists.c src/utils.c \
+				checker.c
+
+# SRCS		=	src/complex.c src/errors.c src/errors2.c src/lists.c \
+# 				src/main.c src/push.c src/reverse.c src/rotate.c src/simple.c src/swap.c \
+# 				src/utils.c src/utils2.c
 				
-OBJS        =	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 OBJS_DIR    =	bin
+OBJS        =	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+CHECK_OBJS	=	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(CHECK_SRCS))
 
 # **************************************************************************** #
 # COLORS
@@ -47,6 +57,10 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)[Success]$(END_COLOR) Push_swap is ready !"
 
+$(CHECK): $(CHECK_OBJS)
+	@$(CC) $(CFLAGS) $(CHECK_OBJS) $(LIBFT) -o $(CHECK)
+	@echo "$(GREEN)[Success]$(END_COLOR) Checker is ready !"
+
 $(OBJS_DIR)/%.o: src/%.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -55,7 +69,7 @@ dependencies:
 	@make -s -C libft
 
 clean:
-	@$(RM) $(OBJS_DIR)
+	@$(RM) $(OBJS_DIR) src/*.o utils/*.o *.o
 	@make clean -s -C libft
 	@echo "$(GREY)[Clean]$(END_COLOR) Objects have been deleted"
 

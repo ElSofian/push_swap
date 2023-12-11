@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 16:53:24 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 10:02:15 by soelalou         ###   ########.fr       */
+/*   Created: 2023/12/11 13:20:27 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:20:31 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-t_pile	*get_next_min(t_pile **stack)
+static t_pile	*get_next_min(t_pile **stack)
 {
 	t_pile	*head;
 	t_pile	*min;
@@ -38,30 +38,14 @@ t_pile	*get_next_min(t_pile **stack)
 
 void	get_pos(t_pile **stack)
 {
-	int		pos;
 	t_pile	*head;
+	int		index;
 
-	pos = 0;
+	index = 0;
 	head = get_next_min(stack);
 	while (head)
 	{
-		head->pos = pos++;
+		head->pos = index++;
 		head = get_next_min(stack);
 	}
-}
-
-int	get_min(t_pile **stack, int val)
-{
-	t_pile	*head;
-	int		min;
-
-	head = *stack;
-	min = head->pos;
-	while (head->next)
-	{
-		head = head->next;
-		if ((head->pos < min) && head->pos != val)
-			min = head->pos;
-	}
-	return (min);
 }

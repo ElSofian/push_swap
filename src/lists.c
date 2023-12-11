@@ -5,54 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 09:58:11 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 10:35:49 by soelalou         ###   ########.fr       */
+/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	freepile(t_pile **lst)
+// Creates new node and returns the pointer of it
+t_pile	*lstnew(int value)
 {
-	t_pile	*tmp;
+	t_pile	*new;
 
-	if (lst)
-	{
-		while (*lst)
-		{
-			tmp = (*lst)->next;
-			free(*lst);
-			(*lst) = tmp;
-		}
-	}
-	*lst = NULL;
+	new = (t_pile *) malloc(sizeof(*new));
+	if (!new)
+		return (NULL);
+	new->nb = value;
+	new->pos = -1;
+	new->next = NULL;
+	return (new);
 }
 
-void	lstadd_back(t_pile **lst, t_pile *new)
+// Returns the last node of a list 
+t_pile	*lstlast(t_pile *head)
 {
 	t_pile	*tmp;
 
-	if (!lst || !new)
+	tmp = head;
+	while (tmp->next)
 	{
-		if (!lst)
-			ft_printf("Argument lst is NULL in ft_lstadd_back() function.\n");
-		if (!new)
-			ft_printf("Argument new is NULL in ft_lstadd_back() function.\n");
-		return ;
+		tmp = tmp->next;
+		if (tmp->next == NULL)
+			return (tmp);
 	}
-	tmp = lstlast(*lst);
-	if (!tmp)
-		*lst = new;
+	return (tmp);
+}
+
+// Adds the specified node to a stack (list) making it the last node
+void	lstadd_back(t_pile **stack, t_pile *new_lst)
+{
+	t_pile	*tmp;
+
+	if (*stack)
+	{
+		tmp = lstlast(*stack);
+		tmp->next = new_lst;
+		new_lst->next = NULL;
+	}
 	else
-		tmp->next = new;
+	{
+		*stack = new_lst;
+		(*stack)->next = NULL;
+	}
 }
 
-int	lstsize(t_pile *lst)
+// Returns the size of the Linked List
+int	lstsize(t_pile *head)
 {
-	int		i;
+	size_t	i;
 	t_pile	*tmp;
 
-	tmp = lst;
+	tmp = head;
 	i = 0;
 	while (tmp)
 	{
@@ -60,29 +73,4 @@ int	lstsize(t_pile *lst)
 		i++;
 	}
 	return (i);
-}
-
-t_pile	*lstnew(int nb)
-{
-	t_pile	*list;
-
-	list = (t_pile *)malloc(sizeof(t_pile));
-	if (!list)
-	{
-		ft_printf("Argument lst is NULL in lstnew() function.\n");
-		return (NULL);
-	}
-	list->nb = nb;
-	list->next = NULL;
-	return (list);
-}
-
-t_pile	*lstlast(t_pile *lst)
-{
-	t_pile	*tmp;
-
-	tmp = lst;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	return (tmp);
 }

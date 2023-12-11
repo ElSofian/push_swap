@@ -21,6 +21,10 @@
 # include <string.h>
 # include <bsd/string.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
+
 typedef struct s_list
 {
 	void			*content;
@@ -48,6 +52,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+char	*get_next_line(int fd);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_strcpy(char *s1, const char *s2);
 char	*ft_strdup(const char *s);

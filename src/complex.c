@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 09:31:03 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 10:03:50 by soelalou         ###   ########.fr       */
+/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	get_max_bits(t_pile **stack)
 	return (max_bits);
 }
 
-void	radix_sort(t_pile **a, t_pile **b)
+void	complex_sort(t_pile **a, t_pile **b)
 {
+	t_pile	*head_a;
 	int		i;
 	int		j;
 	int		size;
 	int		max_bits;
-	t_pile	*head_a;
 
 	i = 0;
 	head_a = *a;

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 09:27:06 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 10:45:00 by soelalou         ###   ########.fr       */
+/*   Created: 2023/12/11 12:45:15 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/11 13:35:11 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ int	rotate(t_pile **stack)
 	return (0);
 }
 
-int	ra(t_pile **stack_a)
+int	ra(t_pile **a)
 {
-	if (rotate(stack_a) == -1)
+	if (rotate(a) == -1)
 		return (-1);
-	ft_printf("ra\n");
+	ft_putendl_fd("ra", 1);
 	return (0);
 }
 
-int	rb(t_pile **stack_b)
+int	rb(t_pile **b)
 {
-	if (rotate(stack_b) == -1)
+	if (rotate(b) == -1)
 		return (-1);
-	ft_printf("rb\n");
+	ft_putendl_fd("rb", 1);
 	return (0);
 }
 
@@ -49,6 +49,6 @@ int	rr(t_pile **a, t_pile **b)
 		return (-1);
 	rotate(a);
 	rotate(b);
-	ft_printf("rr\n");
+	ft_putendl_fd("rr", 1);
 	return (0);
 }
