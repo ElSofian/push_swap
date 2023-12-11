@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:30:28 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/07 14:00:16 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:31:52 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,44 +27,57 @@ static void	display_banner(char *color)
 	ft_printf("\n\t%s╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝%s\
 	\n\n", color, RESTART);
 	ft_printf("\t────────────────────────────────────────────────────────────\
-──────────────\n\n");
+──────────────\n\n\n");
 }
 
-void	initialize(t_pile **a, int ac, char **av)
+void	sort(t_pile **a, t_pile **b)
+{
+	if (lstsize(*a) <= 5)
+		simple_sort(a, b);
+	else
+		radix_sort(a, b);
+}
+
+void	initialize(t_pile **stack, int argc, char **argv)
 {
 	int		i;
-	t_pile	*tmp;
+	char	**args;
+	t_pile	*new;
 
 	i = 0;
-	tmp = NULL;
-	while (++i < ac)
+	if (argc == 2)
+		args = ft_split(argv[1], ' ');
+	else
 	{
-		if (!tmp)
-		{
-			tmp = (t_pile *)malloc(sizeof(t_pile));
-			tmp->nb = ft_atoi(av[i]);
-			tmp->pos = i - 1;
-			tmp->next = NULL;
-			tmp->prev = NULL;
-			*a = tmp;
-		}
-		else
-		{
-			tmp->next = (t_pile *)malloc(sizeof(t_pile));
-			tmp->next->nb = ft_atoi(av[i]);
-			tmp->next->pos = i - 1;
-			tmp->next->prev = tmp;
-			tmp = tmp->next;
-		}
+		i = 1;
+		args = argv;
 	}
+	while (args[i])
+	{
+		new = lstnew(ft_atoi(args[i]));
+		lstadd_back(stack, new);
+		i++;
+	}
+	get_pos(stack);
+	if (argc == 2)
+		ft_freetab(args);
 }
 
 int	main(int ac, char **av)
 {
-	t_pile	*a;
-	t_pile	*b;
-	
+	t_pile	**a;
+	t_pile	**b;
+
+	check(ac, av);
+	a = (t_pile **)malloc(sizeof(t_pile));
+	b = (t_pile **)malloc(sizeof(t_pile));
+	*a = NULL;
+	*b = NULL;
 	display_banner(RED);
-	check(a, b, av);
+	initialize(a, ac, av);
+	check_already_sorted(a, b);
+	sort(a, b);
+	freepile(a);
+	freepile(b);
 	return (0);
 }

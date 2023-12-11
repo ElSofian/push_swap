@@ -27,7 +27,6 @@ typedef struct s_list
 	struct s_list	*next;
 }			t_list;
 
-int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -61,6 +60,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s, char const *set);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
+long	ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	ft_freetab(char **tab);
 void	ft_striteri(char*s, void (*f)(unsigned int, char *));

@@ -6,31 +6,46 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:29:44 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/07 13:55:52 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:44:39 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	error(void)
+void	error(char *str)
 {
-	ft_printf("Error\n");
+	if (str)
+		ft_printf("%s\n", str);
+	else
+		ft_printf("Error\n");
 	exit(EXIT_FAILURE);
 }
 
-void	check(t_pile *a, t_pile *b, char **av)
+void	check(int ac, char **av)
 {
-	int	i;
+	int		i;
+	long	tmp;
+	char	**args;	
 
-	i = 1;
-	while (av[i])
+	i = 0;
+	if (ac == 2)
+		args = ft_split(av[1], ' ');
+	else
 	{
-		check_int_arg(av[i]);
-		check_int(av[i]);
+		i = 1;
+		args = av;
+	}
+	while (args[i])
+	{
+		tmp = ft_atoi(args[i]);
+		check_int_arg(args[i]);
+		check_contain(tmp, i, args);
+		if (tmp < -2147483648 || tmp > 2147483647)
+			error("Error\n");
 		i++;
 	}
-	check_doubles(a);
-	check_result(&a, &b);
+	if (ac == 2)
+		ft_freetab(args);
 }
 
 void	check_int(char *str)
@@ -49,7 +64,7 @@ void	check_int(char *str)
 	while (*str >= '0' && *str <= '9')
 		nb = nb * 10 + (*str++ - '0');
 	if (*str != '\0' || nb > 2147483647 || nb < -2147483648)
-		error();
+		error(NULL);
 }
 
 void	check_int_arg(char *str)
@@ -57,70 +72,12 @@ void	check_int_arg(char *str)
 	int		i;
 
 	i = 0;
+	if (str[i] == '-')
+		i++;
 	while (str[i])
 	{
-		if (str[i] == ' ' && str[i + 1] == ' ')
-			error();
-		if (str[i] == '-' && str[i + 1] == ' ')
-			error();
-		if (str[i] == '+' && str[i + 1] == ' ')
-			error();
-		if (str[i] == ' ' && str[i + 1] == '-')
-			error();
-		if (str[i] == ' ' && str[i + 1] == '+')
-			error();
-		if (str[i] == '-' && str[i + 1] == '-')
-			error();
-		if (str[i] == '+' && str[i + 1] == '+')
-			error();
+		if (!ft_isdigit(str[i]))
+			error(NULL);
 		i++;
-	}
-}
-
-void	check_doubles(t_pile *a)
-{
-	t_pile	*tmp;
-	t_pile	*tmp2;
-
-	tmp = (t_pile *)malloc(sizeof(t_pile));
-	tmp2 = (t_pile *)malloc(sizeof(t_pile));
-	tmp = a;
-	while (tmp)
-	{
-		tmp2 = tmp->next;
-		while (tmp2)
-		{
-			if (tmp->nb == tmp2->nb)
-				error();
-			tmp2 = tmp2->next;
-		}
-		tmp = tmp->next;
-	}
-	freepile(&tmp);
-	freepile(&tmp2);
-}
-
-void	check_result(t_pile **a, t_pile **b)
-{
-	t_pile	*tmp;
-
-	tmp = (t_pile *)malloc(sizeof(t_pile));
-	tmp = *a;
-	while (tmp->next)
-	{
-		if (tmp->nb > tmp->next->nb)
-		{
-			freepile(a);
-			freepile(b);
-			error();
-		}
-		tmp = tmp->next;
-	}
-	tmp = *b;
-	if (tmp)
-	{
-		freepile(a);
-		freepile(b);
-		error();
 	}
 }
