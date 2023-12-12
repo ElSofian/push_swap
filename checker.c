@@ -6,64 +6,65 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:56:02 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:51:23 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/push_swap.h"
 
-int	do_commands(char *line, t_pile **a, t_pile **b)
+static int	do_commands(char *line, t_pile **a, t_pile **b)
 {
-	if (!(ft_strcmp(line, "sa")))
+	if (!(ft_strcmp(line, "sa\n")))
 		return (swap(a));
-	if (!(ft_strcmp(line, "sb")))
+	if (!(ft_strcmp(line, "sb\n")))
 		return (swap(b));
-	if (!(ft_strcmp(line, "ss")))
+	if (!(ft_strcmp(line, "ss\n")))
 		return (swap(a), swap(b));
-	if (!(ft_strcmp(line, "pa")))
+	if (!(ft_strcmp(line, "pa\n")))
 		return (push(a, b));
-	if (!(ft_strcmp(line, "pb")))
+	if (!(ft_strcmp(line, "pb\n")))
 		return (push(b, a));
-	if (!(ft_strcmp(line, "ra")))
+	if (!(ft_strcmp(line, "ra\n")))
 		return (rotate(a));
-	if (!(ft_strcmp(line, "rb")))
+	if (!(ft_strcmp(line, "rb\n")))
 		return (rotate(b));
-	if (!(ft_strcmp(line, "rr")))
+	if (!(ft_strcmp(line, "rr\n")))
 		return (rotate(a), rotate(b));
-	if (!(ft_strcmp(line, "rra")))
+	if (!(ft_strcmp(line, "rra\n")))
 		return (reverse_rotate(a));
-	if (!(ft_strcmp(line, "rrb")))
+	if (!(ft_strcmp(line, "rrb\n")))
 		return (reverse_rotate(b));
-	if (!(ft_strcmp(line, "rrr")))
+	if (!(ft_strcmp(line, "rrr\n")))
 		return (reverse_rotate(a), reverse_rotate(b));
-	return (1);
+	return (-1);
 }
 
-void	print_checker_res(t_pile **a, t_pile **b)
+static int	check_result(t_pile **a, t_pile **b)
 {
 	if (check_already_sorted(a))
-		ft_putendl_fd("OK\n", 1);
+		ft_printf("OK\n");
 	else
-		ft_putendl_fd("KO\n", 1);
+		ft_printf("KO\n");
 	if (*a)
 		free_stack(a);
 	if (*b)
 		free_stack(b);
+	return (0);
 }
 
-static void	initialize(t_pile **stack, int argc, char **argv)
+static void	initialize(t_pile **stack, int ac, char **av)
 {
 	t_pile	*new;
 	char	**args;
 	int		i;
 
 	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
+	if (ac == 2)
+		args = ft_split(av[1], ' ');
 	else
 	{
 		i = 1;
-		args = argv;
+		args = av;
 	}
 	while (args[i])
 	{
@@ -72,34 +73,35 @@ static void	initialize(t_pile **stack, int argc, char **argv)
 		i++;
 	}
 	get_pos(stack);
-	if (argc == 2)
+	if (ac == 2)
 		ft_freetab(args);
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
 	t_pile	**a;
 	t_pile	**b;
 	char	*line;
 
-	if (argc < 2)
-		return (0);
-	a = (t_pile **)malloc(sizeof(t_pile));
-	b = (t_pile **)malloc(sizeof(t_pile));
+	check_args(ac, av);
+	a = (t_pile **)malloc(sizeof(t_pile *));
+	b = (t_pile **)malloc(sizeof(t_pile *));
+	if (!a || !b)
+		error(1);
 	*a = NULL;
 	*b = NULL;
-	check_args(argc, argv);
-	initialize(a, argc, argv);
-	line = get_next_line(0);
-	while (line)
+	initialize(a, ac, av);
+	while (1)
 	{
-		if (do_commands(line, a, b))
+		line = get_next_line(0);
+		if (!line)
+			break ;
+		if (do_commands(line, a, b) == -1)
 		{
-			exit(EXIT_FAILURE);
-			return (-1);
+			return (free_stack(a), free_stack(b),
+				free(line), 0);
 		}
 		free(line);
 	}
-	print_checker_res(a, b);
-	return (0);
+	return (check_result(a, b));
 }

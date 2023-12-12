@@ -1,1 +1,0 @@
-ARG="5 -3 42 87 15 10 78 94"; ./push_swap $ARG | ./checker $ARG

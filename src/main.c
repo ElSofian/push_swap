@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:42:43 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,9 @@ int	main(int argc, char **argv)
 	t_pile	**a;
 	t_pile	**b;
 
-	if (argc < 2)
-		return (-1);
 	check_args(argc, argv);
-	a = (t_pile **)malloc(sizeof(t_pile));
-	b = (t_pile **)malloc(sizeof(t_pile));
+	a = (t_pile **)malloc(sizeof(t_pile *));
+	b = (t_pile **)malloc(sizeof(t_pile *));
 	*a = NULL;
 	*b = NULL;
 	initialize(a, argc, argv);

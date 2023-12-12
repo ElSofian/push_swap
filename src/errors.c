@@ -6,24 +6,32 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:49:54 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	check_contains(int num, int start, char **argv)
+void	error(int ex)
 {
-	start++;
-	while (argv[start])
-	{
-		if (ft_atoi(argv[start]) == num)
-			exit(EXIT_FAILURE);
-		start++;
-	}
+	ft_putendl_fd("Error", 2);
+	if (ex)
+		exit(EXIT_FAILURE);
 }
 
-static void	check_num(char *num)
+static int	check_contains(int num, int start, char **args)
+{
+	start++;
+	while (args[start])
+	{
+		if (ft_atoi(args[start]) == num)
+			return (1);
+		start++;
+	}
+	return (0);
+}
+
+static int	check_num(char *num)
 {
 	int	i;
 
@@ -33,9 +41,10 @@ static void	check_num(char *num)
 	while (num[i])
 	{
 		if (!ft_isdigit(num[i]))
-			exit(EXIT_FAILURE);
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 void	check_args(int argc, char **argv)
@@ -55,10 +64,12 @@ void	check_args(int argc, char **argv)
 	while (args[i])
 	{
 		tmp = ft_atoi(args[i]);
-		check_num(args[i]);
-		check_contains(tmp, i, args);
-		if (tmp < -2147483648 || tmp > 2147483647)
-			exit(EXIT_FAILURE);
+		if (check_num(args[i]) || check_contains(tmp, i, args)
+			|| tmp < -2147483648 || tmp > 2147483647)
+		{
+			ft_freetab(args);
+			error(1);
+		}
 		i++;
 	}
 	if (argc == 2)

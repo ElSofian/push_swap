@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:37:40 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:47:31 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	lstadd_back(t_pile **stack, t_pile *new_lst);
 t_pile	*lstnew(int value);
 t_pile	*lstlast(t_pile *head);
 
+void	error(int ex);
 int		get_min(t_pile **stack, int val);
 int		check_already_sorted(t_pile **stack);
 int		get_distance(t_pile **stack, int index);
