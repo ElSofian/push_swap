@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/12 18:04:23 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:12:35 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ static int	check_result(t_pile **a, t_pile **b)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	if (*a)
-		free_stack(a);
-	if (*b)
-		free_stack(b);
+	free_stack(a);
+	free_stack(b);
 	return (0);
 }
 
@@ -97,11 +95,10 @@ int	main(int ac, char **av)
 		if (!line)
 			break ;
 		if (do_commands(line, a, b) == -1)
-		{
-			return (free_stack(a), free_stack(b),
-				free(line), 0);
-		}
+			return (free_stack(a), free_stack(b), free(line), 0);
 		free(line);
+		line = NULL;
 	}
+	free(line);
 	return (check_result(a, b));
 }

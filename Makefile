@@ -6,7 +6,7 @@
 #    By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:45 by soelalou          #+#    #+#              #
-#    Updated: 2023/12/11 13:48:31 by soelalou         ###   ########.fr        #
+#    Updated: 2023/12/12 18:13:38 by soelalou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,12 @@ dependencies:
 	@make -s -C libft
 
 clean:
-	@$(RM) $(OBJS_DIR) src/*.o utils/*.o *.o
+	@$(RM) $(OBJS_DIR)
 	@make clean -s -C libft
 	@echo "$(GREY)[Clean]$(END_COLOR) Objects have been deleted"
 
 fclean: clean
-	@$(RM) $(OBJS_DIR) $(NAME)
+	@$(RM) $(OBJS_DIR) $(NAME) $(CHECK) check_linux
 	@make fclean -s -C libft
 	@echo "$(GREY)[Clean]$(END_COLOR) $(NAME) and executables have been deleted"
 
