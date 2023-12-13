@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 11:22:50 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:15:30 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,18 @@ static int	check_num(char *num)
 	return (0);
 }
 
-void	check_args(int argc, char **argv)
+void	check_args(int ac, char **av)
 {
 	int		i;
 	long	tmp;
 	char	**args;	
 
+	if (ac != 2 || av[1] == NULL || !av[1][0])
+		error(1);
 	i = 0;
-	if (argv[1] == NULL || !argv[1][0])
-		exit(EXIT_SUCCESS);
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
-	{
-		i = 1;
-		args = argv;
-	}
+	args = ft_split(av[1], ' ');
+	if (!args || !args[0])
+		error(1);
 	while (args[i])
 	{
 		tmp = ft_atoi(args[i]);
@@ -74,6 +70,5 @@ void	check_args(int argc, char **argv)
 		}
 		i++;
 	}
-	if (argc == 2)
-		ft_freetab(args);
+	ft_freetab(args);
 }

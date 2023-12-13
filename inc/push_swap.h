@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:47:31 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:58:38 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	error(int ex);
 int		get_min(t_pile **stack, int val);
 int		check_already_sorted(t_pile **stack);
 int		get_distance(t_pile **stack, int index);
-void	check_args(int argc, char **argv);
+void	check_args(int ac, char **av);
 void	make_top(t_pile **stack, int distance);
 void	free_stack(t_pile **stack);
 

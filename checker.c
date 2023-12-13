@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/12 18:12:35 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:58:25 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,14 @@ static int	check_result(t_pile **a, t_pile **b)
 	return (0);
 }
 
-static void	initialize(t_pile **stack, int ac, char **av)
+static void	initialize(t_pile **stack, char **av)
 {
 	t_pile	*new;
 	char	**args;
 	int		i;
 
 	i = 0;
-	if (ac == 2)
-		args = ft_split(av[1], ' ');
-	else
-	{
-		i = 1;
-		args = av;
-	}
+	args = ft_split(av[1], ' ');
 	while (args[i])
 	{
 		new = lstnew(ft_atoi(args[i]));
@@ -71,8 +65,7 @@ static void	initialize(t_pile **stack, int ac, char **av)
 		i++;
 	}
 	get_pos(stack);
-	if (ac == 2)
-		ft_freetab(args);
+	ft_freetab(args);
 }
 
 int	main(int ac, char **av)
@@ -88,7 +81,7 @@ int	main(int ac, char **av)
 		error(1);
 	*a = NULL;
 	*b = NULL;
-	initialize(a, ac, av);
+	initialize(a, av);
 	while (1)
 	{
 		line = get_next_line(0);
