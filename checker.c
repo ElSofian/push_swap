@@ -5,93 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/03 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 12:20:53 by soelalou         ###   ########.fr       */
+/*   Created: 2023/12/13 20:27:07 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:32:08 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/push_swap.h"
 
-static int	do_commands(char *line, t_pile **a, t_pile **b)
+static void	error_checker(t_pile **a, t_pile **b)
 {
-	if (!(ft_strcmp(line, "sa\n")))
-		return (swap(a));
-	if (!(ft_strcmp(line, "sb\n")))
-		return (swap(b));
-	if (!(ft_strcmp(line, "ss\n")))
-		return (swap(a), swap(b));
-	if (!(ft_strcmp(line, "pa\n")))
-		return (push(a, b));
-	if (!(ft_strcmp(line, "pb\n")))
-		return (push(b, a));
-	if (!(ft_strcmp(line, "ra\n")))
-		return (rotate(a));
-	if (!(ft_strcmp(line, "rb\n")))
-		return (rotate(b));
-	if (!(ft_strcmp(line, "rr\n")))
-		return (rotate(a), rotate(b));
-	if (!(ft_strcmp(line, "rra\n")))
-		return (reverse_rotate(a));
-	if (!(ft_strcmp(line, "rrb\n")))
-		return (reverse_rotate(b));
-	if (!(ft_strcmp(line, "rrr\n")))
-		return (reverse_rotate(a), reverse_rotate(b));
-	return (-1);
+	free_pile(a);
+	free_pile(b);
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
 }
 
-static int	check_result(t_pile **a, t_pile **b)
+static void	parse_cmd(t_pile **a, t_pile **b, char *cmd)
 {
-	if (check_already_sorted(a))
-		ft_putendl_fd("OK\n", 1);
+	if (!ft_strcmp(cmd, "pa\n"))
+		pa(a, b, true);
+	else if (!ft_strcmp(cmd, "pb\n"))
+		pb(b, a, true);
+	else if (!ft_strcmp(cmd, "sa\n"))
+		sa(a, true);
+	else if (!ft_strcmp(cmd, "sb\n"))
+		sb(b, true);
+	else if (!ft_strcmp(cmd, "ss\n"))
+		ss(a, b, true);
+	else if (!ft_strcmp(cmd, "ra\n"))
+		ra(a, true);
+	else if (!ft_strcmp(cmd, "rb\n"))
+		rb(b, true);
+	else if (!ft_strcmp(cmd, "rr\n"))
+		rr(a, b, true);
+	else if (!ft_strcmp(cmd, "rra\n"))
+		rra(a, true);
+	else if (!ft_strcmp(cmd, "rrb\n"))
+		rrb(b, true);
+	else if (!ft_strcmp(cmd, "rrr\n"))
+		rrr(a, b, true);
 	else
-		ft_putendl_fd("KO\n", 1);
-	free_stack(a);
-	free_stack(b);
-	return (0);
+		error_checker(a, b);
 }
 
-static void	initialize(t_pile **stack, char **av)
+static void	init(t_pile **a, char **av, bool is_string)
 {
-	t_pile	*new;
-	char	**args;
+	long	nbr;
 	int		i;
 
 	i = 0;
-	args = ft_split(av[1], ' ');
-	while (args[i])
+	while (av[i])
 	{
-		new = lstnew(ft_atoi(args[i]));
-		lstadd_back(stack, new);
-		i++;
+		if (check_format(av[i]))
+			error(a, av, is_string);
+		nbr = ft_atoi(av[i]);
+		if (nbr > INT_MAX || nbr < INT_MIN)
+			error(a, av, is_string);
+		if (check_doubles(*a, (int)nbr))
+			error(a, av, is_string);
+		append_node(a, (int)nbr);
+		++i;
 	}
-	get_pos(stack);
-	ft_freetab(args);
+	if (is_string)
+		ft_free_av(av);
 }
 
 int	main(int ac, char **av)
 {
-	t_pile	**a;
-	t_pile	**b;
+	int		len;
 	char	*line;
+	t_pile	*a;
+	t_pile	*b;
 
-	check_args(ac, av);
-	a = (t_pile **)malloc(sizeof(t_pile *));
-	b = (t_pile **)malloc(sizeof(t_pile *));
-	if (!a || !b)
-		error(1);
-	*a = NULL;
-	*b = NULL;
-	initialize(a, av);
-	while (1)
+	a = NULL;
+	b = NULL;
+	if (ac == 1)
+		return (0);
+	else if (ac == 2)
+		av = split(av[1], ' ');
+	init(&a, av + 1, ac == 2);
+	len = pile_len(a);
+	line = get_next_line(0);
+	while (line)
 	{
+		parse_cmd(&a, &b, line);
 		line = get_next_line(0);
-		if (!line)
-			break ;
-		if (do_commands(line, a, b) == -1)
-			return (free_stack(a), free_stack(b), free(line), 0);
-		free(line);
-		line = NULL;
 	}
-	free(line);
-	return (check_result(a, b));
+	if (is_sorted(a) && pile_len(a) == len)
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
+	free(a);
+	return (0);
 }

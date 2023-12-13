@@ -5,92 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 12:44:43 by soelalou         ###   ########.fr       */
+/*   Created: 2023/10/13 18:04:15 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:09:49 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+#include <stddef.h>
 
-int	check_already_sorted(t_pile **stack)
+/*
+ *  atol, i need it to check eventual overflows
+ *  converting every string into a long value
+*/
+
+
+/*
+ * Args at the command line are
+ * spaced separated strings
+*/
+static int	count_words(char *str, char separator)
 {
-	t_pile	*head;
+	int		count;
+	bool	inside_word;
 
-	head = *stack;
-	while (head && head->next)
+	count = 0;
+	while (*str)
 	{
-		if (head->nb > head->next->nb)
-			return (0);
-		head = head->next;
+		inside_word = false;
+		while (*str == separator && *str)
+			++str;
+		while (*str != separator && *str)
+		{
+			if (!inside_word)
+			{
+				++count;
+				inside_word = true;
+			}
+			++str;
+		}
 	}
-	return (1);
+	return (count);
 }
 
-int	get_distance(t_pile **stack, int index)
+/*
+ * I exploit static variables
+ * which are basically 
+ * "Global private variables"
+ * i can access it only via the get_next_word function
+*/
+static char	*put_word(char *str, char separator)
 {
-	t_pile	*head;
-	int		distance;
+	int			i;
+	int			len;
+	static int	cursor = 0;
+	char		*next_str;
 
-	distance = 0;
-	head = *stack;
-	while (head)
-	{
-		if (head->pos == index)
-			break ;
-		distance++;
-		head = head->next;
-	}
-	return (distance);
+	len = 0;
+	i = 0;
+	while (str[cursor] == separator)
+		++cursor;
+	while ((str[cursor + len] != separator) && str[cursor + len])
+		++len;
+	next_str = malloc((size_t)len * sizeof(char) + 1);
+	if (!next_str)
+		return (NULL);
+	while ((str[cursor] != separator) && str[cursor])
+		next_str[i++] = str[cursor++];
+	next_str[i] = '\0';
+	return (next_str);
 }
 
-int	get_min(t_pile **stack, int val)
+/*
+ * I recreate an av in the HEAP
+ *
+ * +2 because i want to allocate space
+ * for the "\0" Placeholder and the final NULL
+ *
+ * vector_strings-->[p0]-> "\0" Placeholder to mimic av
+ * 				 |->[p1]->"Hello"
+ * 				 |->[p2]->"how"
+ * 				 |->[p3]->"Are"
+ * 				 |->[..]->"..""
+ * 				 |->[NULL]
+*/
+char	**split(char *str, char separator)
 {
-	t_pile	*head;
-	int		min;
+	int		i;
+	int		words_count;
+	char	**tab;
 
-	head = *stack;
-	min = head->pos;
-	while (head->next)
+	i = 0;
+	words_count = count_words(str, separator);
+	if (!words_count)
+		exit(EXIT_FAILURE);
+	tab = malloc(sizeof(char *) * (words_count + 2));
+	if (tab == NULL)
+		return (NULL);
+	while (words_count-- >= 0)
 	{
-		head = head->next;
-		if ((head->pos < min) && head->pos != val)
-			min = head->pos;
+		if (i == 0)
+		{
+			tab[i] = malloc(sizeof(char));
+			if (!tab[i])
+				return (NULL);
+			tab[i++][0] = '\0';
+			continue ;
+		}
+		tab[i++] = put_word(str, separator);
 	}
-	return (min);
-}
-
-void	make_top(t_pile **stack, int distance)
-{
-	t_pile	*head;
-	int		tmp;
-
-	if (distance == 0)
-		return ;
-	head = *stack;
-	tmp = lstsize(head) - distance;
-	if (distance <= (lstsize(head) / 2))
-	{
-		while (distance-- > 0)
-			ra(stack);
-	}
-	else
-	{
-		while (tmp-- > 0)
-			rra(stack);
-	}
-}
-
-void	free_stack(t_pile **stack)
-{
-	t_pile	*head;
-	t_pile	*tmp;
-
-	head = *stack;
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
-	}
-	free(stack);
+	tab[i] = NULL;
+	return (tab);
 }

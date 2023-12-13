@@ -5,58 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 11:58:49 by soelalou         ###   ########.fr       */
+/*   Created: 2023/10/13 11:26:06 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:28:41 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	initialize(t_pile **stack, char **av)
+/*
+ * Create the stack with the command line values
+ * Checks are embedded in the creation itslef
+ * 		~Duplicate values
+ * 		~Over|Underflow
+ * 		~Syntax errors
+ *
+ * 	🏁 Flag is useful cause if true, i have the av in the HEAP to free
+ *
+*/
+void	initialize(t_pile **a, char **av, bool is_string)
 {
-	t_pile	*new;
-	char	**args;
+	long	nbr;
 	int		i;
 
 	i = 0;
-	args = ft_split(av[1], ' ');
-	while (args[i])
+	while (av[i])
 	{
-		new = lstnew(ft_atoi(args[i]));
-		lstadd_back(stack, new);
-		i++;
+		if (check_format(av[i]))
+			error(a, av, is_string);
+		nbr = ft_atoi(av[i]);
+		if (nbr > INT_MAX || nbr < INT_MIN)
+			error(a, av, is_string);
+		if (check_doubles(*a, (int)nbr))
+			error(a, av, is_string);
+		append_node(a, (int)nbr);
+		++i;
 	}
-	get_pos(stack);
-	ft_freetab(args);
-}
-
-static void	sort(t_pile **a, t_pile **b)
-{
-	if (lstsize(*a) <= 5)
-		simple_sort(a, b);
-	else
-		complex_sort(a, b);
+	if (is_string)
+		ft_free_av(av);
 }
 
 int	main(int ac, char **av)
 {
-	t_pile	**a;
-	t_pile	**b;
+	t_pile	*a;
+	t_pile	*b;
 
-	check_args(ac, av);
-	a = (t_pile **)malloc(sizeof(t_pile *));
-	b = (t_pile **)malloc(sizeof(t_pile *));
-	*a = NULL;
-	*b = NULL;
-	initialize(a, av);
-	if (check_already_sorted(a))
+	a = NULL;
+	b = NULL;
+	if (ac == 1 || (ac == 2 && !av[1][0]))
+		return (1);
+	else if (ac == 2)
+		av = split(av[1], ' ');
+	initialize(&a, av + 1, ac == 2);
+	if (!is_sorted(a))
 	{
-		free_stack(a);
-		free_stack(b);
-		return (0);
+		if (pile_len(a) == 2)
+			sa(&a, false);
+		push_swap(&a, &b);
 	}
-	sort(a, b);
-	free_stack(a);
-	free_stack(b);
-	return (0);
+	free_pile(&a);
 }

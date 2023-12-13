@@ -5,50 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 12:45:15 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:35:11 by soelalou         ###   ########.fr       */
+/*   Created: 2023/10/13 14:59:30 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:09:44 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	rotate(t_pile **stack)
+/*
+ * Top node to bottom position
+*/
+static void	rotate(t_pile **pile)
 {
-	t_pile	*head;
-	t_pile	*tail;
+	int		len;
+	t_pile	*last_node;
 
-	if (lstsize(*stack) < 2)
-		return (-1);
-	head = *stack;
-	tail = lstlast(head);
-	*stack = head->next;
-	head->next = NULL;
-	tail->next = head;
-	return (0);
+	len = pile_len(*pile);
+	if (!pile || !(*pile) || len == 1)
+		return ;
+	last_node = find_last_node(*pile);
+	last_node->next = *pile;
+	*pile = (*pile)->next;
+	(*pile)->prev = NULL;
+	last_node->next->prev = last_node;
+	last_node->next->next = NULL;
 }
 
-int	ra(t_pile **a)
+void	ra(t_pile **a, bool checker)
 {
-	if (rotate(a) == -1)
-		return (-1);
-	ft_putendl_fd("ra", 1);
-	return (0);
+	rotate(a);
+	if (!checker)
+		ft_printf("ra\n");
 }
 
-int	rb(t_pile **b)
+void	rb(t_pile **b, bool checker)
 {
-	if (rotate(b) == -1)
-		return (-1);
-	ft_putendl_fd("rb", 1);
-	return (0);
+	rotate(b);
+	if (!checker)
+		ft_printf("rb\n");
 }
 
-int	rr(t_pile **a, t_pile **b)
+void	rr(t_pile **a, t_pile **b, bool checker)
 {
-	if ((lstsize(*a) < 2) || (lstsize(*b) < 2))
-		return (-1);
 	rotate(a);
 	rotate(b);
-	ft_putendl_fd("rr", 1);
-	return (0);
+	if (!checker)
+		ft_printf("rr\n");
 }

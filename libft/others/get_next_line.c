@@ -6,13 +6,13 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:30:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 12:24:00 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:03:41 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*initialize(int fd, char *buf, char *save)
+char	*init(int fd, char *buf, char *save)
 {
 	int		readed;
 	char	*tmp;
@@ -71,7 +71,7 @@ char	*get_next_line(int fd)
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	line = initialize(fd, buf, save);
+	line = init(fd, buf, save);
 	free(buf);
 	buf = NULL;
 	if (!line)

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 12:44:38 by soelalou         ###   ########.fr       */
+/*   Created: 2023/10/13 07:24:07 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 20:55:06 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,75 @@
 # define PUSH_SWAP_H
 
 # include "../libft/libft.h"
+# include <stdlib.h>
+# include <limits.h>
+# include <stdbool.h>
+# include <unistd.h>
+# include <stdio.h>
 
-typedef struct s_pile
+typedef struct s_stack_node
 {
-	int				nb;
-	int				pos;
-	struct s_pile	*next;
-}				t_pile;
+	int					value;
+	int					pos;
+	int					final_index;
+	int					push_price;
+	bool				higher_than_median;
+	bool				lower;
+	struct s_stack_node	*current;
+	struct s_stack_node	*next;
+	struct s_stack_node	*prev;
+}				t_pile;	
 
-// Complex
-void	complex_sort(t_pile **a, t_pile **b);
-
-// Simple
-void	simple_sort(t_pile **a, t_pile **b);
+//*** Handle input ./push_swap "1 -42 1337" ***
+char	**split(char *str, char separator);
 
 // Errors
-void	error(int ex);
-void	check_args(int ac, char **av);
+void	error(t_pile **a, char **av, bool is_string);
+int		check_doubles(t_pile *a, int nbr);
+int		check_format(char *str_nbr);
+void	ft_free_av(char **av);
+void	free_pile(t_pile **stack);
 
-// Lists
-int		lstsize(t_pile *head);
-void	lstadd_back(t_pile **stack, t_pile *new_lst);
-t_pile	*lstnew(int value);
-t_pile	*lstlast(t_pile *head);
+//*** Stack creation ***
+void	initialize(t_pile **a, char **av, bool is_string);
+void	init_nodes(t_pile *a, t_pile *b);
+void	set_pos(t_pile *stack);
+void	set_price(t_pile *a, t_pile *b);
+void	set_lower(t_pile *b);
 
-// Position
-void	get_pos(t_pile **stack);
+//*** linked list utils ***
+int		pile_len(t_pile *stack);
+bool	is_sorted(t_pile *stack);
+void	append_node(t_pile **stack, int nbr);
+void	final_rotation(t_pile **s, t_pile *n, char c);
+t_pile	*find_last_node(t_pile *head);
+t_pile	*find_smallest(t_pile *stack);
+t_pile	*return_lower(t_pile *stack);
+
+// Algo
+void	tiny_sort(t_pile **a);
+void	handle_five(t_pile **a, t_pile **b);
+void	push_swap(t_pile **a, t_pile **b);
 
 // Moves
-// 		Push
-int		push(t_pile **stack_to, t_pile **stack_from);
-int		pa(t_pile **a, t_pile **b);
-int		pb(t_pile **b, t_pile **a);
+// 		Swap
 
-// 		Reverse
-int		reverse_rotate(t_pile **stack);
-int		rra(t_pile **a);
-int		rrb(t_pile **b);
-int		rrr(t_pile **a, t_pile **b);
+void	sa(t_pile **a, bool checker);
+void	sb(t_pile **b, bool checker);
+void	ss(t_pile **a, t_pile **b, bool checker);
 
 // 		Rotate
-int		rotate(t_pile **stack);
-int		ra(t_pile **a);
-int		rb(t_pile **b);
-int		rr(t_pile **a, t_pile **b);
+void	ra(t_pile **a, bool checker);
+void	rb(t_pile **b, bool checker);
+void	rr(t_pile **a, t_pile **b, bool checker);
 
-// 		Swap
-int		swap(t_pile **stack);
-int		sa(t_pile **a);
-int		sb(t_pile **b);
-int		ss(t_pile **a, t_pile **b);
+// 		Reverse rotate
+void	rra(t_pile **a, bool checker);
+void	rrb(t_pile **b, bool checker);
+void	rrr(t_pile **a, t_pile **b, bool checker);
 
-// Utils
-int		check_already_sorted(t_pile **stack);
-int		get_distance(t_pile **stack, int index);
-int		get_min(t_pile **stack, int val);
-void	make_top(t_pile **stack, int distance);
-void	free_stack(t_pile **stack);
+// 		Push
+void	pa(t_pile **a, t_pile **b, bool checker);
+void	pb(t_pile **b, t_pile **a, bool checker);
 
 #endif

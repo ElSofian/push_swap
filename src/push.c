@@ -5,52 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 12:44:30 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:35:32 by soelalou         ###   ########.fr       */
+/*   Created: 2023/10/13 14:53:10 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:09:34 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	push(t_pile **stack_to, t_pile **stack_from)
+/*
+ * Push a node to the top from src to dest
+ * 🚨 attention If stack empty (i.e. NULL)
+*/
+static void	push(t_pile **dest, t_pile **src)
 {
-	t_pile	*tmp;
-	t_pile	*head_to;
-	t_pile	*head_from;
+	t_pile	*node_to_push;
 
-	if (lstsize(*stack_from) == 0)
-		return (-1);
-	head_to = *stack_to;
-	head_from = *stack_from;
-	tmp = head_from;
-	head_from = head_from->next;
-	*stack_from = head_from;
-	if (!head_to)
+	if (!(*src))
+		return ;
+	node_to_push = *src;
+	*src = (*src)->next;
+	if (*src)
+		(*src)->prev = NULL;
+	node_to_push->prev = NULL;
+	if (NULL == *dest)
 	{
-		head_to = tmp;
-		head_to->next = NULL;
-		*stack_to = head_to;
+		*dest = node_to_push;
+		node_to_push->next = NULL;
 	}
 	else
 	{
-		tmp->next = head_to;
-		*stack_to = tmp;
+		node_to_push->next = *dest;
+		node_to_push->next->prev = node_to_push;
+		*dest = node_to_push;
 	}
-	return (0);
 }
 
-int	pa(t_pile **a, t_pile **b)
+void	pa(t_pile **a, t_pile **b, bool checker)
 {
-	if (push(a, b) == -1)
-		return (-1);
-	ft_putendl_fd("pa", 1);
-	return (0);
+	push(a, b);
+	if (!checker)
+		ft_printf("pa\n");
 }
 
-int	pb(t_pile **a, t_pile **b)
+void	pb(t_pile **b, t_pile **a, bool checker)
 {
-	if (push(b, a) == -1)
-		return (-1);
-	ft_putendl_fd("pb", 1);
-	return (0);
+	push(b, a);
+	if (!checker)
+		ft_printf("pb\n");
 }

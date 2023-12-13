@@ -5,72 +5,100 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 12:35:08 by soelalou         ###   ########.fr       */
+/*   Created: 2023/11/13 20:25:58 by soelalou          #+#    #+#             */
+/*   Updated: 2023/12/13 21:32:03 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-void	error(int ex)
-{
-	ft_putendl_fd("Error", 2);
-	if (ex)
-		exit(EXIT_FAILURE);
-}
-
-static int	check_contains(int num, int start, char **args)
-{
-	start++;
-	while (args[start])
-	{
-		if (ft_atoi(args[start]) == num)
-			return (1);
-		start++;
-	}
-	return (0);
-}
-
-static int	check_num(char *num)
+/*
+ * Ad hoc function to free the 2D array
+ * created with the ft_split function
+ * ATTENTION
+ * You have to start from -1 
+*/
+void	ft_free_av(char **av)
 {
 	int	i;
 
-	i = 0;
-	if (num[0] == '-')
-		i++;
-	while (num[i])
+	i = -1;
+	if (!av || !(*av))
+		return ;
+	while (av[i])
+		free(av[i++]);
+	free(av - 1);
+}
+
+/*
+ * Ad hoc function to free a stack
+*/
+void	free_pile(t_pile **pile)
+{
+	t_pile	*tmp;
+	t_pile	*current;
+
+	if (!pile)
+		return ;
+	current = *pile;
+	while (current)
 	{
-		if (!ft_isdigit(num[i]))
+		tmp = current->next;
+		free(current);
+		current = tmp;
+	}
+	*pile = NULL;
+}
+
+/*
+ * Matrix starts from -1
+ * because i artificially made Up
+ * equal to av
+*/
+void	error(t_pile **a, char **av, bool is_string)
+{
+	free_pile(a);
+	if (is_string)
+		ft_free_av(av);
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
+}
+
+/*
+ * Check if there are some syntactical mistakes
+*/
+int	check_format(char *str_nbr)
+{
+	if (!(*str_nbr == '+'
+			|| *str_nbr == '-'
+			|| (*str_nbr >= '0' && *str_nbr <= '9')))
+		return (1);
+	if ((*str_nbr == '+'
+			|| *str_nbr == '-')
+		&& !(str_nbr[1] >= '0' && str_nbr[1] <= '9'))
+		return (1);
+	while (*++str_nbr)
+	{
+		if (!(*str_nbr >= '0' && *str_nbr <= '9'))
 			return (1);
-		i++;
 	}
 	return (0);
 }
 
-void	check_args(int ac, char **av)
+/*
+ * Loop into the stack for some repetition
+*/
+int	check_doubles(t_pile *a, int nbr)
 {
-	int		i;
-	long	tmp;
-	char	**args;	
-
-	if (ft_strlen(av[1]) == 0)
-		exit(EXIT_SUCCESS);
-	if (ac != 2 || av[1] == NULL || !av[1][0])
-		error(1);
-	i = 0;
-	args = ft_split(av[1], ' ');
-	if (!args || !args[0])
-		error(1);
-	while (args[i])
+	if (NULL == a)
+		return (0);
+	while (a)
 	{
-		tmp = ft_atoi(args[i]);
-		if (check_num(args[i]) || check_contains(tmp, i, args)
-			|| tmp < -2147483648 || tmp > 2147483647)
-		{
-			ft_freetab(args);
-			error(1);
-		}
-		i++;
+		if (a->value == nbr)
+			return (1);
+		a = a->next;
 	}
-	ft_freetab(args);
+	return (0);
 }

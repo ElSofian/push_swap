@@ -5,13 +5,10 @@
 #                                                     +:+ +:+         +:+      #
 #    By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/02 19:46:45 by soelalou          #+#    #+#              #
-#    Updated: 2023/12/13 12:03:43 by soelalou         ###   ########.fr        #
+#    Created: 2023/04/08 12:14:59 by utente            #+#    #+#              #
+#    Updated: 2023/12/13 21:27:43 by soelalou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# **************************************************************************** #
-# VARIABLES
 
 NAME        =	push_swap
 CHECK		=	checker
@@ -20,17 +17,11 @@ CC          =	cc
 CFLAGS      =	-Wall -Wextra -Werror
 RM          =	rm -rf
 
-SRCS		=	src/main.c src/complex.c src/simple.c \
-				src/swap.c src/push.c src/reverse.c src/rotate.c \
-				src/errors.c src/pos.c src/lists.c src/utils.c
-
-CHECK_SRCS	=	src/swap.c src/push.c src/reverse.c src/rotate.c \
-				src/errors.c src/pos.c src/lists.c src/utils.c \
+SRCS		=	$(wildcard src/*.c)
+CHECK_SRCS	=	src/errors.c src/push_swap_init.c src/push_swap.c \
+				src/push.c src/reverse.c src/rotate.c src/sort.c \
+				src/pile_utils.c src/swap.c src/utils.c \
 				checker.c
-
-# SRCS		=	src/complex.c src/errors.c src/errors2.c src/lists.c \
-# 				src/main.c src/push.c src/reverse.c src/rotate.c src/simple.c src/swap.c \
-# 				src/utils.c src/utils2.c
 				
 OBJS_DIR    =	bin
 OBJS        =	$(patsubst src/%.c, $(OBJS_DIR)/%.o, $(SRCS))
