@@ -6,27 +6,13 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:37:59 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:44:05 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	sort_3(t_pile **a)
-{
-	t_pile	*head;
-	int		min;
-	int		next_min;
-
-	head = *a;
-	min = get_min(a, -1);
-	next_min = get_min(a, min);
-	if (check_already_sorted(a))
-		return ;
-	handler_3(a, head, min, next_min);
-}
-
-void	handler_3(t_pile **a, t_pile *head, int min, int next_min)
+static void	handler_3(t_pile **a, t_pile *head, int min, int next_min)
 {
 	if (head->pos == min && head->next->pos != next_min)
 	{
@@ -53,6 +39,20 @@ void	handler_3(t_pile **a, t_pile *head, int min, int next_min)
 	}
 }
 
+static void	sort_3(t_pile **a)
+{
+	t_pile	*head;
+	int		min;
+	int		next_min;
+
+	head = *a;
+	min = get_min(a, -1);
+	next_min = get_min(a, min);
+	if (check_already_sorted(a))
+		return ;
+	handler_3(a, head, min, next_min);
+}
+
 static void	sort_4(t_pile **a, t_pile **b)
 {
 	int	distance;
@@ -76,7 +76,7 @@ static void	sort_4(t_pile **a, t_pile **b)
 	pa(a, b);
 }
 
-void	sort_5(t_pile **a, t_pile **b)
+static void	sort_5(t_pile **a, t_pile **b)
 {
 	int	distance;
 

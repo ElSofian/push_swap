@@ -6,13 +6,13 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:30:32 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:36:22 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	get_max_bits(t_pile **stack)
+static int	get_max_bits(t_pile **stack)
 {
 	t_pile	*head;
 	int		max;

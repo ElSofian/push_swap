@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/11 13:38:02 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:44:43 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@ int	get_distance(t_pile **stack, int index)
 	return (distance);
 }
 
+int	get_min(t_pile **stack, int val)
+{
+	t_pile	*head;
+	int		min;
+
+	head = *stack;
+	min = head->pos;
+	while (head->next)
+	{
+		head = head->next;
+		if ((head->pos < min) && head->pos != val)
+			min = head->pos;
+	}
+	return (min);
+}
+
 void	make_top(t_pile **stack, int distance)
 {
 	t_pile	*head;
@@ -77,20 +93,4 @@ void	free_stack(t_pile **stack)
 		free(tmp);
 	}
 	free(stack);
-}
-
-int	get_min(t_pile **stack, int val)
-{
-	t_pile	*head;
-	int		min;
-
-	head = *stack;
-	min = head->pos;
-	while (head->next)
-	{
-		head = head->next;
-		if ((head->pos < min) && head->pos != val)
-			min = head->pos;
-	}
-	return (min);
 }
