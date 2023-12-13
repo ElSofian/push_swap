@@ -6,7 +6,7 @@
 #    By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:45 by soelalou          #+#    #+#              #
-#    Updated: 2023/12/12 18:13:38 by soelalou         ###   ########.fr        #
+#    Updated: 2023/12/13 11:38:59 by soelalou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,14 @@ PURPLE      =	\033[0;35m
 BLUE        =	\033[0;94m
 CYAN        =	\033[0;36m
 PINK        =	\033[1;35m
+BROWN       =	\033[0;90m
 END_COLOR   =	\033[0;39m
 
 
 # **************************************************************************** #
 # RULES
 
-all: dependencies $(NAME)
+all: dependencies $(NAME) checker_linux
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
@@ -68,13 +69,18 @@ $(OBJS_DIR)/%.o: src/%.c
 dependencies:
 	@make -s -C libft
 
+checker_linux:
+	@curl -s -O https://raw.githubusercontent.com/ElSofian/checker_linux/main/checker_linux
+	@chmod 777 checker_linux
+	@echo "$(BROWN)[Git]$(END_COLOR) Checker_linux has been imported"
+
 clean:
 	@$(RM) $(OBJS_DIR)
 	@make clean -s -C libft
 	@echo "$(GREY)[Clean]$(END_COLOR) Objects have been deleted"
 
 fclean: clean
-	@$(RM) $(OBJS_DIR) $(NAME) $(CHECK) check_linux
+	@$(RM) $(OBJS_DIR) $(NAME) $(CHECK) checker_linux
 	@make fclean -s -C libft
 	@echo "$(GREY)[Clean]$(END_COLOR) $(NAME) and executables have been deleted"
 
