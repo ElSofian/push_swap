@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/12 17:49:54 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:22:50 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	check_args(int argc, char **argv)
 	char	**args;	
 
 	i = 0;
+	if (argv[1] == NULL || !argv[1][0])
+		exit(EXIT_SUCCESS);
 	if (argc == 2)
 		args = ft_split(argv[1], ' ');
 	else
