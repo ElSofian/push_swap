@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 18:33:22 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 11:58:25 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:20:53 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	do_commands(char *line, t_pile **a, t_pile **b)
 static int	check_result(t_pile **a, t_pile **b)
 {
 	if (check_already_sorted(a))
-		ft_printf("OK\n");
+		ft_putendl_fd("OK\n", 1);
 	else
-		ft_printf("KO\n");
+		ft_putendl_fd("KO\n", 1);
 	free_stack(a);
 	free_stack(b);
 	return (0);
