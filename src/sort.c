@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:34:34 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:46 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:50:19 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	is_sorted(t_pile *pile)
 		return (1);
 	while (pile->next)
 	{
-		if (pile->value > pile->next->value)
+		if (pile->nb > pile->next->nb)
 			return (false);
 		pile = pile->next;
 	}
@@ -41,9 +41,9 @@ static t_pile	*find_highest(t_pile *pile)
 	highest = INT_MIN;
 	while (pile)
 	{
-		if (pile->value > highest)
+		if (pile->nb > highest)
 		{
-			highest = pile->value;
+			highest = pile->nb;
 			highest_node = pile;
 		}
 		pile = pile->next;
@@ -67,7 +67,7 @@ void	tiny_sort(t_pile **a)
 		ra(a, false);
 	else if ((*a)->next == highest_node)
 		rra(a, false);
-	if ((*a)->value > (*a)->next->value)
+	if ((*a)->nb > (*a)->next->nb)
 		sa(a, false);
 }
 

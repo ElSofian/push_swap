@@ -37,7 +37,7 @@ void	append_node(t_pile **pile, int nbr)
 	if (!node)
 		return ;
 	node->next = NULL;
-	node->value = nbr;
+	node->nb = nbr;
 	if (!(*pile))
 	{
 		*pile = node;
@@ -64,9 +64,9 @@ t_pile	*find_smallest(t_pile *pile)
 	smallest = LONG_MAX;
 	while (pile)
 	{
-		if (pile->value < smallest)
+		if (pile->nb < smallest)
 		{
-			smallest = pile->value;
+			smallest = pile->nb;
 			smallest_node = pile;
 		}
 		pile = pile->next;

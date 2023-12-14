@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 20:25:58 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:43:20 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:49:32 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	check_doubles(t_pile *a, int nbr)
 		return (0);
 	while (a)
 	{
-		if (a->value == nbr)
+		if (a->nb == nbr)
 			return (1);
 		a = a->next;
 	}

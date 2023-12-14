@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:43:29 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:49:53 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ static void	set_current(t_pile *a, t_pile *b)
 		current_a = a;
 		while (current_a)
 		{
-			if (current_a->value > b->value
-				&& current_a->value < best_match_index)
+			if (current_a->nb > b->nb
+				&& current_a->nb < best_match_index)
 			{
-				best_match_index = current_a->value;
+				best_match_index = current_a->nb;
 				current = current_a;
 			}
 			current_a = current_a->next;
