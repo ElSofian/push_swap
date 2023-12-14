@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:28:48 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:12:14 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	set_price(t_pile *a, t_pile *b)
 */
 void	set_lower(t_pile *b)
 {
-	long			best_match_value;
+	long	best_match_value;
 	t_pile	*best_match_node;
 
 	if (!b)

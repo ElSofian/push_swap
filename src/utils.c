@@ -6,18 +6,12 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 18:04:15 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:49 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:12:19 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stddef.h>
-
-/*
- *  atol, i need it to check eventual overflows
- *  converting every string into a long value
-*/
-
 
 /*
  * Args at the command line are
