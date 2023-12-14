@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:49:53 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:53:22 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	set_lower(t_pile *b)
 		}
 		b = b->next;
 	}
-	best_match_node->lower = true;
+	best_match_node->lowest = true;
 }
 
 /*

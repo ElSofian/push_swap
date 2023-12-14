@@ -84,7 +84,7 @@ t_pile	*return_lower(t_pile *pile)
 		return (NULL);
 	while (pile)
 	{
-		if (pile->lower)
+		if (pile->lowest)
 			return (pile);
 		pile = pile->next;
 	}
