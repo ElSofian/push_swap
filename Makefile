@@ -6,7 +6,7 @@
 #    By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/08 12:14:59 by utente            #+#    #+#              #
-#    Updated: 2023/12/13 21:27:43 by soelalou         ###   ########.fr        #
+#    Updated: 2023/12/14 11:10:04 by soelalou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CC          =	cc
 CFLAGS      =	-Wall -Wextra -Werror
 RM          =	rm -rf
 
-SRCS		=	$(wildcard src/*.c)
+SRCS		=	src/errors.c src/main.c src/push_swap_init.c src/push_swap.c \
+				src/push.c src/reverse.c src/rotate.c src/sort.c \
+				src/pile_utils.c src/swap.c src/utils.c
 CHECK_SRCS	=	src/errors.c src/push_swap_init.c src/push_swap.c \
 				src/push.c src/reverse.c src/rotate.c src/sort.c \
 				src/pile_utils.c src/swap.c src/utils.c \
