@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 07:24:07 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:50:37 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:04:00 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_pile
 {
 	int					nb;
 	int					pos;
-	int					push_price;
+	int					moves_count;
 	bool				higher_than_median;
 	bool				lowest;
 	struct s_pile	*target;

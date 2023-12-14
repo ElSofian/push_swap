@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 16:51:53 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:04:15 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ void	set_price(t_pile *a, t_pile *b)
 	len_b = pile_len(b);
 	while (b)
 	{
-		b->push_price = b->pos;
+		b->moves_count = b->pos;
 		if (!(b->higher_than_median))
-			b->push_price = len_b - (b->pos);
+			b->moves_count = len_b - (b->pos);
 		if (b->target->higher_than_median)
-			b->push_price += b->target->pos;
+			b->moves_count += b->target->pos;
 		else
-			b->push_price += len_a - (b->target->pos);
+			b->moves_count += len_a - (b->target->pos);
 		b = b->next;
 	}
 }
@@ -116,9 +116,9 @@ void	set_lower(t_pile *b)
 	best_match_value = LONG_MAX;
 	while (b)
 	{
-		if (b->push_price < best_match_value)
+		if (b->moves_count < best_match_value)
 		{
-			best_match_value = b->push_price;
+			best_match_value = b->moves_count;
 			best_match_node = b;
 		}
 		b = b->next;
