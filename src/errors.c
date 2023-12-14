@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 20:25:58 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:49:32 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:19:53 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/*
- * Ad hoc function to free the 2D array
- * created with the ft_split function
- * ATTENTION
- * You have to start from -1 
-*/
 void	ft_free_av(char **av)
 {
 	int	i;
@@ -32,9 +26,6 @@ void	ft_free_av(char **av)
 	free(av - 1);
 }
 
-/*
- * Ad hoc function to free a pile
-*/
 void	free_pile(t_pile **pile)
 {
 	t_pile	*tmp;
@@ -52,11 +43,6 @@ void	free_pile(t_pile **pile)
 	*pile = NULL;
 }
 
-/*
- * Matrix starts from -1
- * because i artificially made Up
- * equal to av
-*/
 void	error(t_pile **a, char **av, bool is_string)
 {
 	free_pile(a);
@@ -66,9 +52,6 @@ void	error(t_pile **a, char **av, bool is_string)
 	exit(EXIT_FAILURE);
 }
 
-/*
- * Check if there are some syntactical mistakes
-*/
 int	check_format(char *str_nbr)
 {
 	if (!(*str_nbr == '+'
@@ -87,9 +70,6 @@ int	check_format(char *str_nbr)
 	return (0);
 }
 
-/*
- * Loop into the pile for some repetition
-*/
 int	check_doubles(t_pile *a, int nbr)
 {
 	if (NULL == a)

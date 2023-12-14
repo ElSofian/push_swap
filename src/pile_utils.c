@@ -13,19 +13,21 @@
 #include "../inc/push_swap.h"
 #include <limits.h>
 
-t_pile	*find_last_node(t_pile *head)
+int	pile_len(t_pile *pile)
 {
-	if (!head)
-		return (NULL);
-	while (head->next)
-		head = head->next;
-	return (head);
+	int	count;
+
+	if (!pile)
+		return (0);
+	count = 0;
+	while (pile)
+	{
+		++count;
+		pile = pile->next;
+	}
+	return (count);
 }
 
-/*
- * Search for the last node and append 
- * 🚨 Pay attention if the pile empty?
-*/
 void	append_node(t_pile **pile, int nbr)
 {
 	t_pile	*node;
@@ -51,9 +53,15 @@ void	append_node(t_pile **pile, int nbr)
 	}
 }
 
-/*
- * Find the smallest value node
-*/
+t_pile	*find_last_node(t_pile *head)
+{
+	if (!head)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
+}
+
 t_pile	*find_smallest(t_pile *pile)
 {
 	long	smallest;
@@ -74,10 +82,6 @@ t_pile	*find_smallest(t_pile *pile)
 	return (smallest_node);
 }
 
-/*
- * Return the lower node 
- * that is already flagged
-*/
 t_pile	*return_lower(t_pile *pile)
 {
 	if (!pile)
@@ -89,19 +93,4 @@ t_pile	*return_lower(t_pile *pile)
 		pile = pile->next;
 	}
 	return (NULL);
-}
-
-int	pile_len(t_pile *pile)
-{
-	int	count;
-
-	if (!pile)
-		return (0);
-	count = 0;
-	while (pile)
-	{
-		++count;
-		pile = pile->next;
-	}
-	return (count);
 }

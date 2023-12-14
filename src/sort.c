@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 19:34:34 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:50:19 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:23:19 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,6 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
-
-/*
- * Check if a given pile is sorted
-*/
-bool	is_sorted(t_pile *pile)
-{
-	if (pile == NULL)
-		return (1);
-	while (pile->next)
-	{
-		if (pile->nb > pile->next->nb)
-			return (false);
-		pile = pile->next;
-	}
-	return (true);
-}
 
 static t_pile	*find_highest(t_pile *pile)
 {
@@ -51,13 +35,19 @@ static t_pile	*find_highest(t_pile *pile)
 	return (highest_node);
 }
 
-/*
- * When i have 3 nodes, easy to sort
- * 	~If the 1* is the biggest, ra (biggestto bottom)
- * 	~If the 2* is the biggest, rra (biggest to bottom)
- * 	~Now i have forcefully the Biggest at the bottom
- * 		so i just chek 1° and 2°
-*/
+bool	is_sorted(t_pile *pile)
+{
+	if (pile == NULL)
+		return (1);
+	while (pile->next)
+	{
+		if (pile->nb > pile->next->nb)
+			return (false);
+		pile = pile->next;
+	}
+	return (true);
+}
+
 void	tiny_sort(t_pile **a)
 {
 	t_pile	*highest_node;
@@ -71,9 +61,6 @@ void	tiny_sort(t_pile **a)
 		sa(a, false);
 }
 
-/*
- * Handle input 5
-*/
 void	handle_five(t_pile **a, t_pile **b)
 {
 	while (pile_len(*a) > 3)

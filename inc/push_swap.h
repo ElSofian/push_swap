@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 07:24:07 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 17:06:23 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:24:28 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ typedef struct s_pile
 	struct s_pile	*next;
 }				t_pile;	
 
-//*** Handle input ./push_swap "1 -42 1337" ***
-char	**split(char *str, char separator);
-
 // Errors
 void	error(t_pile **a, char **av, bool is_string);
 int		check_doubles(t_pile *a, int nbr);
@@ -42,25 +39,33 @@ int		check_format(char *str_nbr);
 void	ft_free_av(char **av);
 void	free_pile(t_pile **pile);
 
-//*** Pile creation ***
+// Main
 void	initialize(t_pile **a, char **av, bool is_string);
-void	init_nodes(t_pile *a, t_pile *b);
-void	set_pos(t_pile *pile);
-void	set_price(t_pile *a, t_pile *b);
-void	set_lower(t_pile *b);
 
-//*** linked list utils ***
+// Pile utils
 int		pile_len(t_pile *pile);
-bool	is_sorted(t_pile *pile);
 void	append_node(t_pile **pile, int nbr);
-void	final_rotation(t_pile **pile, t_pile *n, char c);
 t_pile	*find_last_node(t_pile *head);
 t_pile	*find_smallest(t_pile *pile);
 t_pile	*return_lower(t_pile *pile);
 
-// Algo
+// Sort
+bool	is_sorted(t_pile *pile);
 void	tiny_sort(t_pile **a);
 void	handle_five(t_pile **a, t_pile **b);
+
+// Utils
+char	**split(char *str, char separator);
+
+// Algo
+// 		Push swap initialization
+void	set_pos(t_pile *pile);
+void	set_moves_count(t_pile *a, t_pile *b);
+void	set_lower(t_pile *b);
+void	init_nodes(t_pile *a, t_pile *b);
+
+// 		Push swap
+void	final_rotation(t_pile **pile, t_pile *n, char c);
 void	push_swap(t_pile **a, t_pile **b);
 
 // Moves

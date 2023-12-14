@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 17:04:15 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:25:00 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-/*
- * Set the current position of every node 
- * in the current state-configuration
-*/
-void	set_pos(t_pile *pile)
-{
-	int	i;
-	int	centerline;
-
-	i = 0;
-	if (!pile)
-		return ;
-	centerline = pile_len(pile) / 2;
-	while (pile)
-	{
-		pile->pos = i;
-		if (i <= centerline)
-			pile->higher_than_median = true;
-		else
-			pile->higher_than_median = false;
-		pile = pile->next;
-		++i;
-	}
-}
-
-/*
- *	Best match is..
- *   | "The Smallest-bigger value" |
- *
- *  if no node is Bigger, best_match is the Smallest node.
- *  TLDR 
- *  With this function every node in b gets its target node in a
-*/
-static void	set_current(t_pile *a, t_pile *b)
+static void	set_target(t_pile *a, t_pile *b)
 {
 	long	best_match_index;
 	t_pile	*current_a;
@@ -76,13 +43,28 @@ static void	set_current(t_pile *a, t_pile *b)
 	}
 }
 
-/*
- * Set the prices to push the node
- * from b -> a
- * The price checks for the relative positions in the pile
- * for every node, setting the respective price
-*/
-void	set_price(t_pile *a, t_pile *b)
+void	set_pos(t_pile *pile)
+{
+	int	i;
+	int	centerline;
+
+	i = 0;
+	if (!pile)
+		return ;
+	centerline = pile_len(pile) / 2;
+	while (pile)
+	{
+		pile->pos = i;
+		if (i <= centerline)
+			pile->higher_than_median = true;
+		else
+			pile->higher_than_median = false;
+		pile = pile->next;
+		++i;
+	}
+}
+
+void	set_moves_count(t_pile *a, t_pile *b)
 {
 	int	len_a;
 	int	len_b;
@@ -102,10 +84,6 @@ void	set_price(t_pile *a, t_pile *b)
 	}
 }
 
-/*
- * Flag the lower node in the current
- * piles configurations
-*/
 void	set_lower(t_pile *b)
 {
 	long	best_match_value;
@@ -126,18 +104,11 @@ void	set_lower(t_pile *b)
 	best_match_node->lowest = true;
 }
 
-/*
- * All the necessary values to make the push
- * 		~Relative Positions
- * 		~Target node, the b node to make emerge
- * 		~Price for every configuration
- * 		~lower in the current configuration
-*/
 void	init_nodes(t_pile *a, t_pile *b)
 {
 	set_pos(a);
 	set_pos(b);
-	set_current(a, b);
-	set_price(a, b);
+	set_target(a, b);
+	set_moves_count(a, b);
 	set_lower(b);
 }
