@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:53:22 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:51:53 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static void	set_current(t_pile *a, t_pile *b)
 			current_a = current_a->next;
 		}
 		if (best_match_index == LONG_MAX)
-			b->current = find_smallest(a);
+			b->target = find_smallest(a);
 		else
-			b->current = current;
+			b->target = current;
 		b = b->next;
 	}
 }
@@ -94,10 +94,10 @@ void	set_price(t_pile *a, t_pile *b)
 		b->push_price = b->pos;
 		if (!(b->higher_than_median))
 			b->push_price = len_b - (b->pos);
-		if (b->current->higher_than_median)
-			b->push_price += b->current->pos;
+		if (b->target->higher_than_median)
+			b->push_price += b->target->pos;
 		else
-			b->push_price += len_a - (b->current->pos);
+			b->push_price += len_a - (b->target->pos);
 		b = b->next;
 	}
 }

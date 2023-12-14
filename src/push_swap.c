@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:27:28 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 13:45:05 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:51:53 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 */
 static void	rotate_both(t_pile **a, t_pile **b, t_pile *lower_node)
 {
-	while (*a != lower_node->current
+	while (*a != lower_node->target
 		&& *b != lower_node)
 		rr(a, b, false);
 	set_pos(*a);
@@ -31,7 +31,7 @@ static void	rotate_both(t_pile **a, t_pile **b, t_pile *lower_node)
 
 static void	reverse_rotate_both(t_pile **a, t_pile **b, t_pile *lower_node)
 {
-	while (*a != lower_node->current
+	while (*a != lower_node->target
 		&& *b != lower_node)
 		rrr(a, b, false);
 	set_pos(*a);
@@ -74,13 +74,13 @@ static void	move_nodes(t_pile **a, t_pile **b)
 
 	lower_node = return_lower(*b);
 	if (lower_node->higher_than_median
-		&& lower_node->current->higher_than_median)
+		&& lower_node->target->higher_than_median)
 		rotate_both(a, b, lower_node);
 	else if (!(lower_node->higher_than_median)
-		&& !(lower_node->current->higher_than_median))
+		&& !(lower_node->target->higher_than_median))
 		reverse_rotate_both(a, b, lower_node);
 	final_rotation(b, lower_node, 'b');
-	final_rotation(a, lower_node->current, 'a');
+	final_rotation(a, lower_node->target, 'a');
 	pa(a, b, false);
 }
 
