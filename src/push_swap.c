@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:27:28 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:32 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:45:05 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ static void	reverse_rotate_both(t_pile **a, t_pile **b, t_pile *lower_node)
 }
 
 /*
- * Conclude the rotation of the stacks 
+ * Conclude the rotation of the piles 
 */
-void	final_rotation(t_pile **stack, t_pile *top_node, char pile)
+void	final_rotation(t_pile **pile, t_pile *top_node, char pile_name)
 {
-	while (*stack != top_node)
+	while (*pile != top_node)
 	{
-		if (pile == 'a')
+		if (pile_name == 'a')
 		{
 			if (top_node->higher_than_median)
-				ra(stack, false);
+				ra(pile, false);
 			else
-				rra(stack, false);
+				rra(pile, false);
 		}
-		else if (pile == 'b')
+		else if (pile_name == 'b')
 		{
 			if (top_node->higher_than_median)
-				rb(stack, false);
+				rb(pile, false);
 			else
-				rrb(stack, false);
+				rrb(pile, false);
 		}
 	}
 }

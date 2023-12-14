@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:53:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:34 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:45:10 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
  * Push a node to the top from src to dest
- * 🚨 attention If stack empty (i.e. NULL)
+ * 🚨 attention If pile empty (i.e. NULL)
 */
 static void	push(t_pile **dest, t_pile **src)
 {

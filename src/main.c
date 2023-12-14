@@ -6,14 +6,14 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 11:26:06 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:28:41 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:43:22 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
 /*
- * Create the stack with the command line values
+ * Create the pile with the command line values
  * Checks are embedded in the creation itslef
  * 		~Duplicate values
  * 		~Over|Underflow

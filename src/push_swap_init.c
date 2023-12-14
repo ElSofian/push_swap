@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:26:10 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 11:12:14 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:43:29 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	set_current(t_pile *a, t_pile *b)
 /*
  * Set the prices to push the node
  * from b -> a
- * The price checks for the relative positions in the stack
+ * The price checks for the relative positions in the pile
  * for every node, setting the respective price
 */
 void	set_price(t_pile *a, t_pile *b)
@@ -104,7 +104,7 @@ void	set_price(t_pile *a, t_pile *b)
 
 /*
  * Flag the lower node in the current
- * stacks configurations
+ * piles configurations
 */
 void	set_lower(t_pile *b)
 {

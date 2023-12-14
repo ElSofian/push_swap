@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 20:25:58 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:32:03 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:43:20 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_av(char **av)
 }
 
 /*
- * Ad hoc function to free a stack
+ * Ad hoc function to free a pile
 */
 void	free_pile(t_pile **pile)
 {
@@ -88,7 +88,7 @@ int	check_format(char *str_nbr)
 }
 
 /*
- * Loop into the stack for some repetition
+ * Loop into the pile for some repetition
 */
 int	check_doubles(t_pile *a, int nbr)
 {

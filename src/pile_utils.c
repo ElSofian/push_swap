@@ -24,28 +24,28 @@ t_pile	*find_last_node(t_pile *head)
 
 /*
  * Search for the last node and append 
- * 🚨 Pay attention if the stack empty?
+ * 🚨 Pay attention if the pile empty?
 */
-void	append_node(t_pile **stack, int nbr)
+void	append_node(t_pile **pile, int nbr)
 {
 	t_pile	*node;
 	t_pile	*last_node;
 
-	if (!stack)
+	if (!pile)
 		return ;
 	node = malloc(sizeof(t_pile));
 	if (!node)
 		return ;
 	node->next = NULL;
 	node->value = nbr;
-	if (!(*stack))
+	if (!(*pile))
 	{
-		*stack = node;
+		*pile = node;
 		node->prev = NULL;
 	}
 	else
 	{
-		last_node = find_last_node(*stack);
+		last_node = find_last_node(*pile);
 		last_node->next = node;
 		node->prev = last_node;
 	}

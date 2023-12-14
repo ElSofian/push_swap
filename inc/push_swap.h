@@ -6,7 +6,7 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 07:24:07 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 20:55:06 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:43:42 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <stdio.h>
 
-typedef struct s_stack_node
+typedef struct s_pile
 {
 	int					value;
 	int					pos;
@@ -28,9 +28,9 @@ typedef struct s_stack_node
 	int					push_price;
 	bool				higher_than_median;
 	bool				lower;
-	struct s_stack_node	*current;
-	struct s_stack_node	*next;
-	struct s_stack_node	*prev;
+	struct s_pile	*current;
+	struct s_pile	*next;
+	struct s_pile	*prev;
 }				t_pile;	
 
 //*** Handle input ./push_swap "1 -42 1337" ***
@@ -41,23 +41,23 @@ void	error(t_pile **a, char **av, bool is_string);
 int		check_doubles(t_pile *a, int nbr);
 int		check_format(char *str_nbr);
 void	ft_free_av(char **av);
-void	free_pile(t_pile **stack);
+void	free_pile(t_pile **pile);
 
-//*** Stack creation ***
+//*** Pile creation ***
 void	initialize(t_pile **a, char **av, bool is_string);
 void	init_nodes(t_pile *a, t_pile *b);
-void	set_pos(t_pile *stack);
+void	set_pos(t_pile *pile);
 void	set_price(t_pile *a, t_pile *b);
 void	set_lower(t_pile *b);
 
 //*** linked list utils ***
-int		pile_len(t_pile *stack);
-bool	is_sorted(t_pile *stack);
-void	append_node(t_pile **stack, int nbr);
-void	final_rotation(t_pile **s, t_pile *n, char c);
+int		pile_len(t_pile *pile);
+bool	is_sorted(t_pile *pile);
+void	append_node(t_pile **pile, int nbr);
+void	final_rotation(t_pile **pile, t_pile *n, char c);
 t_pile	*find_last_node(t_pile *head);
-t_pile	*find_smallest(t_pile *stack);
-t_pile	*return_lower(t_pile *stack);
+t_pile	*find_smallest(t_pile *pile);
+t_pile	*return_lower(t_pile *pile);
 
 // Algo
 void	tiny_sort(t_pile **a);
