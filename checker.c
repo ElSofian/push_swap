@@ -6,13 +6,13 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:27:07 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:32:08 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/16 09:49:18 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/push_swap.h"
 
-static void	error_checker(t_pile **a, t_pile **b)
+void	error_checker(t_pile **a, t_pile **b)
 {
 	free_pile(a);
 	free_pile(b);

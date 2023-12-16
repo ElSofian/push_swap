@@ -6,16 +6,12 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:26:45 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:48 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/16 09:36:45 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-/*
- * ATTENTION
- * There may be only 2 nodes
-*/
 static void	swap(t_pile **head)
 {
 	int	len;

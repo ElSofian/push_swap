@@ -6,15 +6,12 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:48:25 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:35 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/16 09:36:55 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-/*
- * Bottom to top
-*/
 static void	reverse_rotate(t_pile **pile)
 {
 	int		len;

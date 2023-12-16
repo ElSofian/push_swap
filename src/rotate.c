@@ -6,15 +6,12 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:59:30 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/13 21:09:44 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/16 09:36:51 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-/*
- * Top node to bottom position
-*/
 static void	rotate(t_pile **pile)
 {
 	int		len;

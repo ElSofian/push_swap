@@ -6,17 +6,13 @@
 /*   By: soelalou <soelalou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 18:04:15 by soelalou          #+#    #+#             */
-/*   Updated: 2023/12/14 11:12:19 by soelalou         ###   ########.fr       */
+/*   Updated: 2023/12/16 09:49:06 by soelalou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stddef.h>
 
-/*
- * Args at the command line are
- * spaced separated strings
-*/
 static int	count_words(char *str, char separator)
 {
 	int		count;
@@ -41,12 +37,6 @@ static int	count_words(char *str, char separator)
 	return (count);
 }
 
-/*
- * I exploit static variables
- * which are basically 
- * "Global private variables"
- * i can access it only via the get_next_word function
-*/
 static char	*put_word(char *str, char separator)
 {
 	int			i;
@@ -69,19 +59,6 @@ static char	*put_word(char *str, char separator)
 	return (next_str);
 }
 
-/*
- * I recreate an av in the HEAP
- *
- * +2 because i want to allocate space
- * for the "\0" Placeholder and the final NULL
- *
- * vector_strings-->[p0]-> "\0" Placeholder to mimic av
- * 				 |->[p1]->"Hello"
- * 				 |->[p2]->"how"
- * 				 |->[p3]->"Are"
- * 				 |->[..]->"..""
- * 				 |->[NULL]
-*/
 char	**split(char *str, char separator)
 {
 	int		i;
@@ -91,7 +68,7 @@ char	**split(char *str, char separator)
 	i = 0;
 	words_count = count_words(str, separator);
 	if (!words_count)
-		exit(EXIT_FAILURE);
+		return (ft_printf("Error\n"), exit(EXIT_FAILURE), NULL);
 	tab = malloc(sizeof(char *) * (words_count + 2));
 	if (tab == NULL)
 		return (NULL);
